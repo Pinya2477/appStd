@@ -1,124 +1,71 @@
 import React from "react";
+
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { StyleSheet, Text, TouchableOpacity, View, Image, TextInput, ScrollView, ActivityIndicator,Input, Button } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  Image,
+  TextInput,
+  ScrollView,
+  ActivityIndicator,
+  Input,
+  Platform,
+} from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { FlatList } from "react-native";
+
+
 
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const Cat = () => {
-  return (
-    <ScrollView >
-       
-      <View style={styles.view1}>
-        <Image 
-          source={{
-            uri: 'https://cdn.pic.in.th/file/picinth/22476e5caecd89b1b.png',
-          }}
-          style={{width: 100, height: 100, }} 
-        />
-      </View>
-      <Text style={styles.text}>กนกกาญจน์ กุมลา</Text>
-      <View>
-        <Image
-          source={{
-            uri: 'https://cdn.pic.in.th/file/picinth/3c9302fd8e059d77b.png',
-          }}
-          style={{width: 100, height: 100}}
-        />
-      </View>
-      <Text style={styles.text}>กมลลักษณ์ บุญก้อน</Text>
-      <View>
-        <Image
-          source={{
-            uri: 'https://cdn.pic.in.th/file/picinth/5187451f6c4a714ba.png',
-          }}
-          style={{width: 100, height: 100}}
-        />
-      </View>
-      <Text style={styles.text}>กิตติกร กลมลา</Text>
+function GetData() {
+  const [data, setData] = React.useState([]);
+  let host =
+    Platform.OS == "android"
+      ? "http://10.0.2.2:8000/std/"
+      : "http://localhost/:8000/std/";
 
-      <View>
-        <Image
-          source={{
-            uri: 'https://cdn.pic.in.th/file/picinth/7bc7e66e46a619129.png',
-          }}
-          style={{width: 100, height: 100}}
-        />
-      </View>
-      <Text style={styles.text}>กุลธิดา มิควาฬ</Text>
-
-      <View>
-        <Image
-          source={{
-            uri: 'https://cdn.pic.in.th/file/picinth/17715dd903a3330ea.png',
-          }}
-          style={{width: 100, height: 100}}
-        />
-      </View>
-      <Text style={styles.text}>จักรภัทร เลื่อนไชย</Text>
-
-      <View>
-        <Image
-          source={{
-            uri: 'https://cdn.pic.in.th/file/picinth/86d1f113d3c060518.png',
-          }}
-          style={{width: 100, height: 100}}
-        />
-      </View>
-      <Text style={styles.text}>ชลลดา ราชวัตร</Text>
-    </ScrollView>
-  );
-};
-
-// function GetData() {
-//   const [data, setData] = React.useState([]);
-//   let host =
-//     Platform.OS == "android"
-//       ? "http://10.0.2.2:8000/std/"
-//       : "http://localhost/:8000/std/";
-
-//   React.useEffect(() => {
-//     fetch(host)
-//       .then((response) => response.json())
-//       .then((result) => setData(result))
-//       .catch((err) => Alert.alert(err.message));
-// }, []);
+  React.useEffect(() => {
+    fetch(host)
+      .then((response) => response.json())
+      .then((result) => setData(result))
+      .catch((err) => Alert.alert(err.message));
+}, []);
 
 
 
-// return (
-//   <View style={styles.container}>
-//     <FlatList 
-//     data={data}
-//     renderItem={renderFlatListItem}
-//     style={styles.flatList}
-//     contenContainaerStyle={styles.flatListContent}
-//     />
+return (
+  <View style={styles.container}>
+    <FlatList 
+    data={data}
+    renderItem={renderFlatListItem}
+    style={styles.flatList}
+    contenContainaerStyle={styles.flatListContent}
+    />
 
-//   </View>
-// );
+  </View>
+);
 
-// }
-
+}
 
 // ข้อมูลตรงกลาง
 
 function TabHome() {
   return (
     <View style={styles.container}>
-      
-      <Image 
-        source={{ uri: 'https://cdn.pic.in.th/file/picinth/Group93820fff85620ba0.png'}}
-        // source={{ uri: 'https://mis-school.com/2021/wp-content/uploads/2021/03/Group-565.png'}}
-        style={{ width:350, height: 500}}
-        containerStyle={{ marginLeft: 'auto', marginRight: 'auto'}}
+      <Image
+        source={{
+          uri: "https://mis-school.com/2021/wp-content/uploads/2021/03/Group-565.png",
+        }}
+        style={{ width: 350, height: 500 }}
+        containerStyle={{ marginLeft: "auto", marginRight: "auto" }}
       />
-    <Text style={styles.text.color}></Text>
+      <Text style={styles.text.color}>Welcome to STD App</Text>
     </View>
   );
 }
@@ -140,7 +87,6 @@ function Home({ navigation }) {
         </TouchableOpacity>
       </View>
 
-
       <View style={styles.button}>
         <TouchableOpacity onPress={() => navigation.navigate("Student")}>
           <View style={styles.imgButtonContainer}>
@@ -155,7 +101,6 @@ function Home({ navigation }) {
         </TouchableOpacity>
       </View>
 
-
       <View style={styles.button}>
         <TouchableOpacity onPress={() => navigation.navigate("Contact")}>
           <View style={styles.imgButtonContainer}>
@@ -166,7 +111,6 @@ function Home({ navigation }) {
               style={styles.icon}
             />
             <Text style={styles.buttonText}>Contact</Text>
-
           </View>
         </TouchableOpacity>
       </View>
@@ -177,12 +121,8 @@ function Home({ navigation }) {
 function Student({ navigation }) {
   return (
     <View style={styles.container}>
-      <Button
-          title="Add++"
-          onPress={() => Alert.alert('Right button pressed')}
-        />
-      <Text style={styles.text}></Text>
-      <Cat />
+      <Text style={styles.text}>Student</Text>
+      
     </View>
   );
 }
@@ -190,11 +130,7 @@ function Student({ navigation }) {
 function Contact({ navigation }) {
   return (
     <View style={styles.container}>
-    
-      <Text style={styles.text2}></Text>
-      <Text style={styles.text2}>วิทยาลัยธาตุพนม มหาวิทยาลัยนครพนม</Text>
-      <Text style={styles.text2}>โทร. 042542442</Text>
-
+      <Text style={styles.text}>Contact</Text>
     </View>
   );
 }
@@ -214,7 +150,6 @@ export default function App() {
           tabBarInactiveTintColor: "gray",
         })}
       >
-       
         <Tab.Screen
           name="Home"
           component={TabHome}
@@ -262,7 +197,6 @@ function AppStack() {
           name="Contact"
           component={Contact}
           options={{ headerTitle: "ติดต่อ", headerBackTitle: "" }}
-
         />
       </Stack.Navigator>
     </NavigationContainer>
@@ -302,12 +236,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "white",
   },
-
-  button2: {
-    color: "#069911",
-    alignItems: "right"
-    
-  },
   imgButtonContainer: {
     flexDirection: "row",
     justifyContent: "space-evenly",
@@ -316,16 +244,42 @@ const styles = StyleSheet.create({
   icon: {
     marginRight: 15,
   },
-  text2: {
-    marginTop:0,
-    textAlign: "left",
-    color: "red",
-    fontSize: 20,
-  },
-  text3: {
-    marginTop:0,
-    color: "red",
-    fontSize: 16,
-  },
-
+  // flatList: {
+  //   marginTop: 10,
+  // },
+  // flatListContent: {
+  //   margin: 10,
+  //   paddingBottom: 50,
+  // },
+  // flatListItem: {
+  //   flexDirection: "row",
+  //   justifyContent: "space-between",
+  //   backgroundColor: "lightslategray",
+  //   marginBottom: 8,
+  //   padding: 10,
+  // },
+  // // itemTitle: {
+  // //   fontSize: 16,
+  // //   color: "white" ,
+  // // },
+  // // itemName: {
+  // //   fontSize: 16,
+  // //   color: "white" ,
+  // //   padding: 100,
+  // // },
+  // // itemAddress: {
+  // //   fontSize: 16,
+  // //   color: "white" ,
+  // //   padding: 100,
+  // // },
+  // // itemTelephone: {
+  // //   fontSize: 16,
+  // //   color: "white" ,
+  // //   padding: 100,
+  // // },
+  // // itemEmail: {
+  // //   fontSize: 16,
+  // //   color: "white" ,
+  // //   padding: 100,
+  // // },
 });
